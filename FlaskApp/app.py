@@ -8,4 +8,7 @@ def create_app():
     def home():
         return render_template('main.html')
 
+    @app.route('/newMeeting')
+    def newMeeting():
+        return render_template('header.html')
     return app
