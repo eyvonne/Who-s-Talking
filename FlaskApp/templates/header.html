@@ -44,10 +44,6 @@
       </ul>
 
 
-
-
-
-
       <ul class="nav navbar-nav navbar-right">
 
       		  <div style="margin-right: 10px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;"  class="container-fluid">
@@ -171,9 +167,10 @@
 
 <body>
   <div class="container-fluid" align="center" style="height:100%;">
-		<p>this text is in the div</p>
+		{% block content %}
+		{% endblock %}
 	</div>
-	<p> This text is just off the bottom of the screen <p>
+
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
