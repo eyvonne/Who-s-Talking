@@ -1,0 +1,25 @@
+{% extends "header.html" %}
+
+{% block content %}
+<h3> Start a New Meeting </h3>
+<p> This form will take you through the steps of setting up a new meeting that will not be saved or use any machine learning.</p>
+<form>
+  <div class="form-group">
+    <label for="numAttendees">How Many Attendees?</label>
+    <input class="form-control" type="number" placeholder="3" style="width: 100px" id='numAttendees'>
+  </div>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#enterNames" aria-expanded="false" aria-controls="enterNames">
+    Enter Names
+  </button>
+  <div class="collapse" id="enterNames">
+  <div class="card card-body">
+    This text will be replaced with another form that allows the entry of names
+    {% for i in numAttendees%}
+    <p> {{i}}</p>
+    {% endfor %}
+  </div>
+</div>
+</form>
+
+
+{% endblock %}
