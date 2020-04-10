@@ -11,15 +11,14 @@
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#enterNames" aria-expanded="false" aria-controls="enterNames">
     Enter Names
   </button>
-  <div class="collapse" id="enterNames">
+  <div class="collapse" id="enterNames"><script src="{{ url_for('static', filename='js/newMeeting.js')}}"></script>
+
   <div class="card card-body">
     This text will be replaced with another form that allows the entry of names
-    {% for i in numAttendees%}
-    <p> {{i}}</p>
-    {% endfor %}
+
   </div>
 </div>
 </form>
-
+<!--<script src="{{ url_for('static', filename='js/newMeeting.js')}}"></script>-->
 
 {% endblock %}
