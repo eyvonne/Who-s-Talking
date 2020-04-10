@@ -10,8 +10,3 @@ $(function(){
       })
   })
 })
-
-
-var enter_names = `{{% for i in numAttend %}}
-  <input class="form-control" type="text" placeholder="Enter Name {i}">
-{{% endfor %}}`
