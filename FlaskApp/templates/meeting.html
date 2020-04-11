@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+
+{% block content %}
+<h3> {{ User }}'s Meeting </h3>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off"> {{ User }}: 00:00
+  </label>
+{% for attendee in attendees %}
+
+<label class="btn btn-secondary active">
+  <input type="radio" name="options" id="option1" autocomplete="off"> {{ attendee }}: 00:00
+</label>
+
+{% endfor %}
+</div>
+{% endblock %}

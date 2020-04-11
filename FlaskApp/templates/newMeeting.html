@@ -3,14 +3,19 @@
 {% block content %}
 <h3> Start a New Meeting </h3>
 <p> This form will take you through the steps of setting up a new meeting that will not be saved or use any machine learning.</p>
-<form>
+<form method='POST' action='runningMeeting'>
   <div class="form-group">
+    <label for="facilitator">What is your name?</label>
+    <input class="form-control" type="text" placeholder="Enter Name" style="width: 50%" name="facilitator">
     <label for="numAttendees">How Many Attendees?</label>
-    <input class="form-control" type="number" value="3" style="width: 100px" id='numAttendees'>
+    <input class="form-control" type="number" value="3" style="width: 10%" name='numAttendees' id='numAttendees'>
   </div>
-  <div id='nameEntry'>
-    
+  <div class='form-group' id='nameEntry'>
+    <input class="form-control" type="text" placeholder="Enter Name" style="width: 50%" name=attendee0>
+    <input class="form-control" type="text" placeholder="Enter Name" style="width: 50%" name=attendee1>
+    <input class="form-control" type="text" placeholder="Enter Name" style="width: 50%" name=attendee2>
   </div>
+  <input type="submit" class="btn btn-primary" value="Start Meeting" action='Send'>
 </form>
 <script src="{{ url_for('static', filename='js/newMeeting.js')}}"></script>
 
