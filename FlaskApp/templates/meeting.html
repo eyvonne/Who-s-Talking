@@ -2,16 +2,49 @@
 
 {% block content %}
 <h3> {{ User }}'s Meeting </h3>
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
+<div class="btn-group btn-group-toggle" data-toggle="buttons" id="Meeting">
   <label class="btn btn-secondary active">
     <input type="radio" name="options" id="option1" autocomplete="off"> {{ User }}: 00:00
   </label>
 {% for attendee in attendees %}
 
 <label class="btn btn-secondary active">
-  <input type="radio" name="options" id="option1" autocomplete="off"> {{ attendee }}: 00:00
+  <input type="radio" name="options" id="{{ attendee }}" autocomplete="off"> {{ attendee }}: 00:00
 </label>
 
 {% endfor %}
+
 </div>
+
+
+<a role="presentation" data-toggle="modal" data-target="#addUser" href="#">
+    <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 010-.708L10.793 8 8.146 5.354a.5.5 0 11.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z" clip-rule="evenodd"/>
+    <path fill-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9A.5.5 0 011 8z" clip-rule="evenodd"/>
+    <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0015 13V3a1.5 1.5 0 00-1.5-1.5h-8A1.5 1.5 0 004 3v1.5a.5.5 0 001 0V3a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v10a.5.5 0 01-.5.5h-8A.5.5 0 015 13v-1.5a.5.5 0 00-1 0V13a1.5 1.5 0 001.5 1.5h8z" clip-rule="evenodd"/>
+ Add User </a>
+
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="addUser">Add User</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <form class="form-inline">
+        <input type="text" class="form-control" placeholder="Enter Name" name="newAttendee" value="" id="newAttendee" style="width: 100%">
+        <div class="container-fluid" align="center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Add Attendee">Add User</button>
+        </div>
+        </form>
+
+    </div>
+    </div>
+
+  </div>
+  </div>
+</div>
+
 {% endblock %}
