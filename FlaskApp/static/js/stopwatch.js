@@ -3,7 +3,7 @@ var time_slot = '#Eyve_timer'
 
 $(start_button).click(function(){
   alert('start_button works')
-  timer(0)
+  timer($(start_button).val())
 })
 
 function timer(time){
@@ -26,7 +26,7 @@ function timer(time){
 
             display_time = min + ":" + sec + ":" + mSec
             $('#Eyve_timer').html(display_time);
-
+            $('#Eyve_button').val(time)
 
             timer(time);
         }, 10);}

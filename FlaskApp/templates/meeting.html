@@ -5,14 +5,75 @@
 <form id='meetingform'>
 <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Meeting" style='margin-bottom:10px; width:75%;'>
   <label class="btn btn-secondary active" id='{{ User}}_label'>
-    <input type="radio" name="options" autocomplete="off" id='{{ User }}_button'> {{ User }}:<div id='{{ User }}_timer'> 00:00 </div>
+    <input type="radio" name="options" autocomplete="off" id='{{ User }}_button' value=0> {{ User }}:<div id='{{ User }}_timer'> 00:00 </div>
   </label>
+  <script type="text/javascript">
+    $('#{{ User }}_button').click(function(){
+      timer{{User}}($('#{{ User }}_button').val())
+    })
+
+    function timer{{User}}(time){
+
+        if ($('input[name=options]:checked', '#meetingform').attr('id') == '{{User}}_button'){
+            setTimeout(function() {
+                time++;
+
+                var min = Math.floor(time/100/60);
+                var sec = Math.floor(time/100);
+                var mSec = time % 100;
+
+                if (min < 10) min = "0" + min;
+
+                if (sec >= 60) sec = sec % 60;
+
+                if (sec < 10) sec = "0" + sec;
+
+                if (mSec < 10) mSec = "0" + mSec;
+
+                display_time = min + ":" + sec + ":" + mSec
+                $('#{{User}}_timer').html(display_time);
+                $('#{{User}}_button').val(time)
+
+                timer{{User}}(time);
+            }, 10);}
+        }
+  </script>
 {% for attendee in attendees %}
 
 <label class="btn btn-secondary active">
-  <input type="radio" name="options" id="{{ attendee }}" autocomplete="off" style='width:1000px'> {{ attendee }}:<div id="{{ attendee }} timer"> 00:00 </div>
+  <input type="radio" name="options" id="{{ attendee }}_button" autocomplete="off" value=0> {{ attendee }}:<div id="{{ attendee }}_timer"> 00:00 </div>
 </label>
+<script type="text/javascript">
+  $('#{{ attendee }}_button').click(function(){
+    timer{{attendee}}($('#{{ attendee }}_button').val())
+  })
 
+  function timer{{attendee}}(time){
+
+      if ($('input[name=options]:checked', '#meetingform').attr('id') == '{{attendee}}_button'){
+          setTimeout(function() {
+              time++;
+
+              var min = Math.floor(time/100/60);
+              var sec = Math.floor(time/100);
+              var mSec = time % 100;
+
+              if (min < 10) min = "0" + min;
+
+              if (sec >= 60) sec = sec % 60;
+
+              if (sec < 10) sec = "0" + sec;
+
+              if (mSec < 10) mSec = "0" + mSec;
+
+              display_time = min + ":" + sec + ":" + mSec
+              $('#{{attendee}}_timer').html(display_time);
+              $('#{{attendee}}_button').val(time)
+
+              timer{{attendee}}(time);
+          }, 10);}
+      }
+</script>
 {% endfor %}
 
 </div>
@@ -49,7 +110,6 @@
   </div>
 </div>
 <script src="{{ url_for('static', filename='js/mainMeeting.js')}}"></script>
-<script src="{{ url_for('static', filename='js/stopwatch.js')}}"></script>
 
 
 {% endblock %}
