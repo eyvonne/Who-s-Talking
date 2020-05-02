@@ -20,4 +20,8 @@ def create_app():
             attendees = [request.form[f'attendee{i}'] for i in range(num)]
         return render_template('meeting.html', User=user, attendees=attendees)
 
+    @app.route('/playground')
+    def playground():
+        return render_template('timer.html')
+
     return app

@@ -2,8 +2,8 @@
 
 {% block content %}
 <h3> {{ User }}'s Meeting </h3>
-<form id='meetingform'>
 <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Meeting" style='margin-bottom:10px; width:75%;'>
+<form id='meetingform'
   <label class="btn btn-secondary active" id='{{ User}}_label'>
     <input type="radio" name="options" autocomplete="off" id='{{ User }}_button'> {{ User }}:<div id='{{ User }}_timer'> 00:00 </div>
   </label>
@@ -14,9 +14,9 @@
 </label>
 
 {% endfor %}
-
-</div>
 </form>
+</div>
+
 <div style='magrin-top : 100px'>
 <button type="button" class="btn btn-warning" id='sw-rst'>Restart Meeting</button>
 <a class="btn btn-primary" role="presentation" data-toggle="modal" data-target="#addUser" href="#">

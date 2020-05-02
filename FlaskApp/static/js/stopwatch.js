@@ -1,70 +1,37 @@
-var sw = {
-  /* [INIT] */
-  etime : null, // holds HTML time display
-  erst : null, // holds HTML reset button
-  ego : null, // holds HTML start/stop button
-  timer : null, // timer object
-  now : 0, // current timer
-  init : function (disp_id, reset_id, start_id) {
-    // Get HTML elements
-    sw.etime = document.getElementById("sw-time");
-    sw.erst = document.getElementById("sw-rst");
-    sw.ego = document.getElementById("sw-go");
+var start_button = '#Eyve_button'
+var time_slot = '#Eyve_timer'
 
-    // Attach listeners
-    sw.erst.addEventListener("click", sw.reset);
-    sw.erst.disabled = false;
-    sw.ego.addEventListener("click", sw.start);
-    sw.ego.disabled = false;
-  },
+$(start_button).click(function(){
+  alert('start_button works')
+  timer(0)
+})
 
-  /* [ACTIONS] */
-  tick : function () {
-  // tick() : update display if stopwatch running
+function timer(time){
 
-    // Calculate hours, mins, seconds
-    sw.now++;
-    var remain = sw.now;
-    var hours = Math.floor(remain / 3600);
-    remain -= hours * 3600;
-    var mins = Math.floor(remain / 60);
-    remain -= mins * 60;
-    var secs = remain;
+    if ($('input[name=options]:checked', '#meetingform').attr('id') == 'Eyve_button'){
+        setTimeout(function() {
+            time++;
 
-    // Update the display timer
-    if (hours<10) { hours = "0" + hours; }
-    if (mins<10) { mins = "0" + mins; }
-    if (secs<10) { secs = "0" + secs; }
-    sw.etime.innerHTML = hours + ":" + mins + ":" + secs;
-  },
+            var min = Math.floor(time/100/60);
+            var sec = Math.floor(time/100);
+            var mSec = time % 100;
 
-  start : function () {
-  // start() : start the stopwatch
+            if (min < 10) min = "0" + min;
 
-    sw.timer = setInterval(sw.tick, 1000);
-    sw.ego.value = "Stop";
-    sw.ego.removeEventListener("click", sw.start);
-    sw.ego.addEventListener("click", sw.stop);
-  },
+            if (sec >= 60) sec = sec % 60;
 
-  stop  : function () {
-  // stop() : stop the stopwatch
+            if (sec < 10) sec = "0" + sec;
 
-    clearInterval(sw.timer);
-    sw.timer = null;
-    sw.ego.value = "Start";
-    sw.ego.removeEventListener("click", sw.stop);
-    sw.ego.addEventListener("click", sw.start);
-  },
+            if (mSec < 10) mSec = "0" + mSec;
 
-  reset : function () {
-  // reset() : reset the stopwatch
+            display_time = min + ":" + sec + ":" + mSec
+            $('#Eyve_timer').html(display_time);
 
-    // Stop if running
-    if (sw.timer != null) { sw.stop(); }
 
-    // Reset time
-    sw.now = -1;
-    sw.tick();
-  }
-};
+            timer(time);
+        }, 10);}
+    }
+
+// $('#meetingform input').on('change', function() {
+//    alert($('input[name=options]:checked', '#meetingform').attr('id'));
+// });

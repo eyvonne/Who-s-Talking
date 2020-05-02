@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Stopwatch</title>
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+    <style>
+        body {
+            background-color: pink;
+        }
+        .container {
+            margin-top: 100px;
+            text-align: center;
+        }
+        #timerLabel {
+            margin: 100px 0px;
+            color: white;
+        }
+        .myButton {
+            width: 180px;
+            height: 50px;
+            border: none;
+            border-radius: 6px;
+            background-color: white;
+            font-size: 16px;
+        }
+        .title, .myButton {
+            font-family: 'Berkshire Swash', cursive;
+            color: midnightblue;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="title">StopWatch</h1>
+    <h1 id="timerLabel">00:00:00</h1>
+    <input type="button" class="myButton" onclick="start()" value="START" id="startBtn">
+    <input type="button" class="myButton" onclick="stop()" value="STOP">
+    <input type="button" class="myButton" onclick="reset()" value="RESET">
+</div>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/stopwatch.js')}}">
+</script>
+</body>
+</html>
