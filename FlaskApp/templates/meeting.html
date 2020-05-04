@@ -5,7 +5,7 @@
 <form id='meetingform'>
 <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Meeting" style='margin-bottom:10px; width:75%;'>
   <label class="btn btn-secondary active" id='{{ User}}_label'>
-    <input type="radio" name="options" autocomplete="off" id='{{ User }}_button' value=0> {{ User }}:<div id='{{ User }}_timer'> 00:00 </div>
+    <input type="radio" name="options" autocomplete="off" id='{{ User }}_button' value=1> {{ User }}:<div id='{{ User }}_timer'> 00:00:00 </div>
   </label>
   <script type="text/javascript">
     $('#{{ User }}_button').click(function(){
@@ -31,9 +31,13 @@
                 if (mSec < 10) mSec = "0" + mSec;
 
                 display_time = min + ":" + sec + ":" + mSec
-                $('#{{User}}_timer').html(display_time);
-                $('#{{User}}_button').val(time)
-
+                if ($('#{{User}}_button').val() != 0) {
+                  $('#{{User}}_timer').html(display_time);
+                  $('#{{User}}_button').val(time)
+                }
+                else{
+                  $('#{{User}}_button').val(1)
+                }
                 timer{{User}}(time);
             }, 10);}
         }
@@ -41,7 +45,7 @@
 {% for attendee in attendees %}
 
 <label class="btn btn-secondary active">
-  <input type="radio" name="options" id="{{ attendee }}_button" autocomplete="off" value=0> {{ attendee }}:<div id="{{ attendee }}_timer"> 00:00 </div>
+  <input type="radio" name="options" id="{{ attendee }}_button" autocomplete="off" value=1> {{ attendee }}:<div id="{{ attendee }}_timer"> 00:00:00 </div>
 </label>
 <script type="text/javascript">
   $('#{{ attendee }}_button').click(function(){
@@ -51,9 +55,8 @@
   function timer{{attendee}}(time){
 
       if ($('input[name=options]:checked', '#meetingform').attr('id') == '{{attendee}}_button'){
-          setTimeout(function() {
+          setTimeout(function(){
               time++;
-
               var min = Math.floor(time/100/60);
               var sec = Math.floor(time/100);
               var mSec = time % 100;
@@ -67,17 +70,27 @@
               if (mSec < 10) mSec = "0" + mSec;
 
               display_time = min + ":" + sec + ":" + mSec
-              $('#{{attendee}}_timer').html(display_time);
-              $('#{{attendee}}_button').val(time)
 
-              timer{{attendee}}(time);
+              if ($('#{{attendee}}_button').val() != 0) {
+                $('#{{attendee}}_timer').html(display_time);
+                $('#{{attendee}}_button').val(time)
+              }
+              else {
+                $('#{{attendee}}_button').val(1)
+              }
+
+              timer{{attendee }}(time);
           }, 10);}
       }
 </script>
 {% endfor %}
+<label class="btn btn-secondary active">
+  <input type="radio" name="options" id="pause_button" autocomplete="off" value=0> Pause Meeting
+</label>
 
 </div>
 </form>
+
 <div style='magrin-top : 100px'>
 <button type="button" class="btn btn-warning" id='sw-rst'>Restart Meeting</button>
 <a class="btn btn-primary" role="presentation" data-toggle="modal" data-target="#addUser" href="#">

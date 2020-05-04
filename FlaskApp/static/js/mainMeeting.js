@@ -7,3 +7,13 @@
       return html
     })
   });
+
+$('#sw-rst').click(function(){
+  $("form#meetingform :input").each(function(){
+    var name_button = $(this).attr('id');
+    $(this).prop('checked', false);
+    $(this).val(0);
+    name = name_button.replace('_button', '');
+    $('#' + name + '_timer').html('00:00:00');
+  })
+})
