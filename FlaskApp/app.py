@@ -16,7 +16,7 @@ def create_app():
     def run_meeting():
         if request.method == 'POST':
             num = int(request.form['numAttendees'])
-            user = request.form['facilitator']
+            user = [request.form['facilitator']]
             attendees = [request.form[f'attendee{i}'] for i in range(num)]
         return render_template('meeting.html', User=user, attendees=attendees)
 

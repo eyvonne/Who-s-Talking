@@ -1,20 +1,28 @@
 {% extends "header.html" %}
 
 {% block content %}
-<h3> {{ User }}'s Meeting </h3>
+<script>
+  function unpack(user, vars){
+    vars.push(user)
+    return vars
+  }
+
+  var Users = unpack({{User[0]|tojson}}, {{attendees|tojson}})
+</script>
+<h3> {{ User[0] }}'s Meeting </h3>
 <form id='meetingform'>
 <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Meeting" style='margin-bottom:10px; width:75%;'>
-  <label class="btn btn-secondary active" id='{{ User}}_label'>
-    <input type="radio" name="options" autocomplete="off" id='{{ User }}_button' value=1> {{ User }}:<div id='{{ User }}_timer'> 00:00:00 </div>
+  <label class="btn btn-secondary active" id='{{ User[0]}}_label'>
+    <input type="radio" name="options" autocomplete="off" id='{{ User[0] }}_button' value=1> {{ User[0] }}:<div id='{{ User[0] }}_timer'> 00:00:00 </div>
   </label>
   <script type="text/javascript">
-    $('#{{ User }}_button').click(function(){
-      timer{{User}}($('#{{ User }}_button').val())
+    $('#{{ User[0] }}_button').click(function(){
+      timer{{User[0]}}($('#{{ User[0] }}_button').val())
     })
 
-    function timer{{User}}(time){
+    function timer{{User[0]}}(time){
 
-        if ($('input[name=options]:checked', '#meetingform').attr('id') == '{{User}}_button'){
+        if ($('input[name=options]:checked', '#meetingform').attr('id') == '{{User[0]}}_button'){
             setTimeout(function() {
                 time++;
 
@@ -31,14 +39,14 @@
                 if (mSec < 10) mSec = "0" + mSec;
 
                 display_time = min + ":" + sec + ":" + mSec
-                if ($('#{{User}}_button').val() != 0) {
-                  $('#{{User}}_timer').html(display_time);
-                  $('#{{User}}_button').val(time)
+                if ($('#{{User[0]}}_button').val() != 0) {
+                  $('#{{User[0]}}_timer').html(display_time);
+                  $('#{{User[0]}}_button').val(time)
                 }
                 else{
-                  $('#{{User}}_button').val(1)
+                  $('#{{User[0]}}_button').val(1)
                 }
-                timer{{User}}(time);
+                timer{{User[0]}}(time);
             }, 10);}
         }
   </script>
@@ -93,17 +101,25 @@
 
 <div style='magrin-top : 100px'>
 <button type="button" class="btn btn-warning" id='sw-rst'>Restart Meeting</button>
-<a class="btn btn-primary" role="presentation" data-toggle="modal" data-target="#addUser" href="#">
+<a class="btn btn-primary" role="presentation" data-toggle="modal" data-target="#addUser[0]" href="#">
     <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 010-.708L10.793 8 8.146 5.354a.5.5 0 11.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9A.5.5 0 011 8z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0015 13V3a1.5 1.5 0 00-1.5-1.5h-8A1.5 1.5 0 004 3v1.5a.5.5 0 001 0V3a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v10a.5.5 0 01-.5.5h-8A.5.5 0 015 13v-1.5a.5.5 0 00-1 0V13a1.5 1.5 0 001.5 1.5h8z" clip-rule="evenodd"/>
  Add Person</a>
 </div>
-<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <canvas id="talking_chart"></canvas>
+</div>
+
+
+
+<div class="modal fade" id="addUser[0]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title" id="addUser">Add Person</h4>
+      <h4 class="modal-title" id="addUser[0]">Add Person</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 
     </div>
@@ -122,7 +138,10 @@
   </div>
   </div>
 </div>
-<script src="{{ url_for('static', filename='js/mainMeeting.js')}}"></script>
+
+<script src='{{ url_for("static", filename="js/chart.js/dist/Chart.js") }}'></script>
+
+<script src="{{ url_for('static', filename='js/mainMeeting.js') }}"></script>
 
 
 {% endblock %}
