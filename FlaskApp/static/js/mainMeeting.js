@@ -21,34 +21,59 @@ $('#sw-rst').click(function(){
 // start of making the chart work
 var ctx = document.getElementById('talking_chart');
 
+// generate the colors of the sections of chart
+var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+         };
+colors = []
+// actually create the list
+for (var i in window.Users){
+  colors.push(dynamicColors())
+}
+
+// instanciate the chart
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: window.Users, // set the labels as the users
+        datasets: [{
+            label: 'time spoken',
+            data: Array(window.Users.length).fill(1),
+            backgroundColor: colors
+        }]
+    }
+});
+
+
+// two functions coppied from docs
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+
+
 $('#meetingform').change(function(){
   var times = []
   $("form#meetingform :input").each(function(){
     times.push($(this).val())
   })
-
-  var myChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-          labels: window.Users,
-          datasets: [{
-              label: '# of Votes',
-              data: times,
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)'
-              ],
-              borderWidth: 1
-          }]
-      }
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
   });
+  chart.update()
 
 })

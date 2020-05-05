@@ -3,7 +3,7 @@
 {% block content %}
 <script>
   function unpack(user, vars){
-    vars.push(user)
+    vars.unshift(user)
     return vars
   }
 
